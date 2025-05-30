@@ -1,0 +1,141 @@
+1. 
+
+#fitting of straight line, parabola and exponential curves to the data
+#straight line
+import numpy as np
+import matplotlib.pyplot as plt
+# Data
+x = np.array([1, 2, 3, 4, 6, 8])
+y = np.array([2.4, 3, 3.6, 4, 5, 6])
+# Fit the line y = ax + b
+a, b = np.polyfit(x, y, 1)
+# Print the coefficients
+print(f"Fitted line: y = ({a:.2f})x + ({b:.2f})")
+# Plotting
+plt.scatter(x, y, label="Data", color='blue')
+plt.plot(x, a * x + b, color="green", label=f"Fitted line: y = {a:.2f}x + {b:.2f}")
+plt.legend()
+plt.show()
+
+2.
+
+#fitting of straight line, parabola and exponential curves to the data
+#straight line
+import numpy as np
+import matplotlib.pyplot as plt
+# Data
+x = np.array([1, 2, 3, 4, 5])
+y = np.array([2.1, 4.1, 6.0, 7.9, 10.1])
+# Fit the line y = ax + b
+a, b = np.polyfit(x, y, 1)
+# Print the coefficients
+print(f"Fitted line: y = ({a:.2f})x + ({b:.2f})")
+# Plotting
+plt.scatter(x, y, label="Data", color='blue')
+plt.plot(x, a * x + b, color="green", label=f"Fitted line: y = {a:.2f}x + {b:.2f}")
+plt.legend()
+plt.show()
+
+3.
+
+import numpy as np
+import matplotlib.pyplot as plt
+# Data
+x = np.array([1, 2, 3, 4, 5, 6])
+y = np.array([2.51, 5.82, 9.93, 14.84, 20.55, 27.06])
+# Fit a parabola (second-degree polynomial)
+coeffs = np.polyfit(x, y, 2)  # Degree 2
+a, b, c = coeffs
+print(f"Fitted parabola: y = {a:.4f}x² + {b:.4f}x + {c:.4f}")
+# Create smooth x values for plotting the curve
+x_fit = np.linspace(min(x), max(x), 200)
+y_fit = a * x_fit**2 + b * x_fit + c
+# Plotting
+plt.figure(figsize=(8, 6))
+plt.scatter(x, y, color='blue', label='Data points')
+plt.plot(x_fit, y_fit, color='orange', label=f'Fitted Parabola: y = {a:.2f}x² + {b:.2f}x + {c:.2f}')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Second-Degree Parabola Fit')
+plt.legend()
+plt.show()
+
+4.
+
+import numpy as np
+import matplotlib.pyplot as plt
+# Data
+x = np.array([1, 2, 3, 4, 5, 6])
+y = np.array([2.98, 4.61, 7.93, 18.54, 51.83, 128.92])
+# Log transform to linearize: ln(y) = ln(a) + bx
+log_y = np.log(y)
+# Fit straight line to (x, ln(y)) to get b and ln(a)
+b, log_a = np.polyfit(x, log_y, 1)
+a = np.exp(log_a)
+# Print fitted exponential equation
+print(f"Fitted exponential curve: y = {a:.4f} * e^({b:.4f}x)")
+# Generate smooth x values for plotting
+x_fit = np.linspace(min(x), max(x), 200)
+y_fit = a * np.exp(b * x_fit)
+# Plot
+plt.figure(figsize=(8, 6))
+plt.scatter(x, y, color='blue', label='Data points')
+plt.plot(x_fit, y_fit, color='red', label=f'Fitted: y = {a:.2f}e^({b:.2f}x)')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Exponential Curve Fit: y = ae^{bx}')
+plt.legend()
+plt.show()
+
+5.
+
+import numpy as np
+import matplotlib.pyplot as plt
+# Data
+x = np.array([1, 2, 3, 4, 5, 6])
+y = np.array([2.98, 4.26, 5.21, 6.10, 6.80, 7.5])
+# Take logarithms
+log_x = np.log(x)
+log_y = np.log(y)
+# Fit line to log-log data: ln(y) = ln(a) + b*ln(x)
+b, log_a = np.polyfit(log_x, log_y, 1)
+a = np.exp(log_a)
+# Print result
+print(f"Fitted power-law (exponential) curve: y = {a:.4f} * x^{b:.4f}")
+# Plot original data and fitted curve
+x_fit = np.linspace(min(x), max(x), 200)
+y_fit = a * x_fit**b
+plt.figure(figsize=(8, 6))
+plt.scatter(x, y, color='blue', label='Data points')
+plt.plot(x_fit, y_fit, color='darkgreen', label=f'Fitted: y = {a:.2f}x^{b:.2f}')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Power-Law (Exponential) Fit: y = ax^b')
+plt.legend()
+plt.show()
+
+6.
+
+import numpy as np
+import matplotlib.pyplot as plt
+# Data
+x = np.array([2, 3, 4, 5, 6])
+y = np.array([144, 172.8, 207.4, 248.8, 298.5])
+# Take logarithm of y
+log_y = np.log(y)
+# Linear regression: ln(y) = ln(a) + x * ln(b)
+slope, intercept = np.polyfit(x, log_y, 1)
+b = np.exp(slope)
+a = np.exp(intercept)
+print(f"Fitted exponential curve: y = {a:.4f} * {b:.4f}^x")
+# Plot
+x_fit = np.linspace(min(x), max(x), 200)
+y_fit = a * b**x_fit
+plt.figure(figsize=(8, 6))
+plt.scatter(x, y, color='blue', label='Data points')
+plt.plot(x_fit, y_fit, color='darkorange', label=f'Fitted: y = {a:.2f} × {b:.2f}^x')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Exponential Fit: y = ab^x')
+plt.legend()
+plt.show()
